@@ -27,7 +27,7 @@ from torch.autograd import Variable
 
 
 
-class VGG_MCAM_resnet(nn.Module):
+class Minmaxcam_resnet(nn.Module):
     def __init__(self, base_net="vgg", set_size = 5, numclass=200):
         super().__init__()
 
@@ -960,7 +960,7 @@ class VGG_MCAM_resnet(nn.Module):
 
 
 
-class VGG_MCAM_mobilenet(nn.Module):
+class Minmaxcam_mobilenet(nn.Module):
     def __init__(self, base_net="vgg", set_size = 5, numclass=200):
         super().__init__()
 
@@ -1935,7 +1935,7 @@ class VGG_MCAM_mobilenet(nn.Module):
 
 
 
-class VGG_MCAM(nn.Module):
+class Minmaxcam_VGG(nn.Module):
     def __init__(self, base_net="vgg", set_size = 5, numclass=200):
         super().__init__()
 

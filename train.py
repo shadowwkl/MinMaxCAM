@@ -20,7 +20,7 @@ import scipy.io as sio
 
 from PIL import Image
 
-from network import VGG_MCAM_resnet, VGG_MCAM_mobilenet, VGG_MCAM
+from network import Minmaxcam_VGG, Minmaxcam_mobilenet, Minmaxcam_resnet
 
 # Some constants
 DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -232,13 +232,13 @@ if __name__ == "__main__":
 
 
 
-    if args.mode == 'VGG_MCAM':
-        net = VGG_MCAM(base_net='vgg', set_size=args.ss)
+    if args.mode == 'Minmaxcam_VGG':
+        net = Minmaxcam_VGG(base_net='vgg', set_size=args.ss)
 
-    elif args.mode == 'VGG_MCAM_mobilenet':
-        net = VGG_MCAM_mobilenet(base_net='vgg', set_size=args.ss)
-    elif args.mode == 'VGG_MCAM_resnet':
-        net = VGG_MCAM_resnet(base_net='vgg', set_size=args.ss)
+    elif args.mode == 'Minmaxcam_mobilenet':
+        net = Minmaxcam_mobilenet(base_net='vgg', set_size=args.ss)
+    elif args.mode == 'Minmaxcam_resnet':
+        net = Minmaxcam_resnet(base_net='vgg', set_size=args.ss)
 
 
     
@@ -246,7 +246,7 @@ if __name__ == "__main__":
 
 
 
-    if args.mode == 'VGG_MCAM_resnet':
+    if args.mode == 'Minmaxcam_resnet':
 
         optimizer = optim.SGD([
             {'params': net.base.parameters(),'lr':LR},
@@ -256,13 +256,13 @@ if __name__ == "__main__":
 
 
 
-    elif args.mode == 'VGG_MCAM_mobilenet':
+    elif args.mode == 'Minmaxcam_mobilenet':
         optimizer = optim.SGD([
             {'params': net.features.parameters(),'lr':LR*1},
             {'params': net.pred.parameters(),'lr':LR*10},
             ], lr=LR, weight_decay=WD, momentum=0.9, nesterov=True)
 
-    elif args.mode == 'VGG_MCAM':
+    elif args.mode == 'Minmaxcam_VGG':
 
         optimizer = optim.SGD([
             {'params': net.features.parameters(),'lr':LR},
@@ -281,7 +281,7 @@ if __name__ == "__main__":
 
 
     if OFFSET != 0:
-        state_path = os.path.join('./checkpoint', '{}_{}{}_epoch_best.pt'.format(args.mode, net.base_net, args.name, OFFSET))
+        state_path = os.path.join('./checkpoint', 'minmaxcam_{}_{}_epoch_best.pt'.format(args.mode, args.name, OFFSET))
     
 
         print(state_path)
